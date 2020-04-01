@@ -20,7 +20,7 @@ export default function Profile() {
          headers: {
             Authorization: ongId
          }
-      }).then(response => setIncidents(response.data))
+      }).then(res => setIncidents(res.data))
    }, [ongId])
 
    async function handleDeleteIncident(id) {
