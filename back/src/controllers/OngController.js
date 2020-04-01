@@ -1,17 +1,17 @@
-const crypto = require('crypto')
-const connection = require('../database/connection')
+const crypto = reuire('crypto');
+const connection = require('../database/connection');
 
 module.exports = {
-   async index (request, response)  {
-      const ongs = await connection('ongs').select('*')
+   async index (req, res)  {
+      const ongs = await connection('ongs').select('*');
 
-      return response.json(ongs)
+      return res.json(ongs);
    },
 
-   async create(request, response) {
-      const { name, email, whatsapp, city, uf } = request.body
+   async create(req,res) {
+      const { name, email, whatsapp, city, uf } = req.body;
       
-      const id = crypto.randomBytes(4).toString('HEX')
+      const id = crypto.randomBytes(4).toString('HEX');
 
       await connection('ongs').insert({
          id,
@@ -20,25 +20,25 @@ module.exports = {
          whatsapp,
          city,
          uf,
-      })
+      });
 
-      return response.json({ id })
+      return res.json({ id });
    },
 
-   async delete(request, response) {
-      const { id } = request.params
+   async delete(req, res) {
+      const { id } = req.params;
 
       const ongs = await connection('ongs')
          .where('id', id)
          .select('id')
-         .first()
+         .first();
 
       if (ongs.id !== id) {
-         return response.status(401).json({ Error: "You're not authorized" })
+         return res.status(401).json({ Error: "You're not authorized" });
       }
 
-      await connection('ongs').where('id', id).delete()
+      await connection('ongs').where('id', id).delete();
 
-      return response.status(204).send()
+      return res.status(204).send();
    }
-}
+};
