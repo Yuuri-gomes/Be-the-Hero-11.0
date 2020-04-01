@@ -17,12 +17,12 @@ module.exports = {
 
       res.header('X-Total-Count', count['count(*)']);
 
-      return response.json(incidents);
+      return res.json(incidents);
    },
 
    async create(req, res) {
       const { title, description, value } = req.body;
-      const ong_id = request.headers.authorization;
+      const ong_id = req.headers.authorization;
 
       const [id] = await connection('incidents').insert({
          title,
@@ -30,8 +30,41 @@ module.exports = {
          value,
          ong_id
       });
-
+      
       return res.json({ id });
+   },
+
+   async edit(req, res) {
+
+      const ong_id = req.body.ong_id;
+      const {title,description,value} = req.body;
+
+      const incidents = await connection('incidents')
+      .where('ong_id',ong_id)
+      .update({
+         title,
+         description,
+         value,
+         ong_id
+      });
+
+      
+      console.log(incidents);
+
+      try {
+
+         return res.json(incidents);
+         
+         
+      } catch (err) {
+         console.log("Deu erro");
+
+      }
+
+      // await connection('incidents').where('id', id).update({description: req.body[2]});
+
+      // console.log(req.body);
+
    },
 
    async delete(req, res) {

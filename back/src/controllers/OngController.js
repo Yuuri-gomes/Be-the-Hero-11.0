@@ -1,4 +1,4 @@
-const crypto = reuire('crypto');
+const crypto = require('crypto');
 const connection = require('../database/connection');
 
 module.exports = {
