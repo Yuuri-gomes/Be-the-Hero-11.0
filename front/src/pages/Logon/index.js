@@ -1,30 +1,30 @@
-import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { FiLogIn } from 'react-icons/fi'
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { FiLogIn } from 'react-icons/fi';
 
-import api from '../../services/api'
+import api from '../../services/api';
 
-import './styles.css'
+import './styles.css';
 
-import logoImg from '../../assets/logo.svg'
-import heroesImg from '../../assets/heroes.png'
+import logoImg from '../../assets/logo.svg';
+import heroesImg from '../../assets/heroes.png';
 
 export default function Logon() {
-   const [id, setId] = useState('')
-   const history = useHistory()
+   const [id, setId] = useState('');
+   const history = useHistory();
 
    async function handleLogin(e) {
-      e.preventDefault()
+      e.preventDefault();
 
       try {
          const response = await api.post('sessions', { id })
 
-         localStorage.setItem('ongId', id)
-         localStorage.setItem('ongName', response.data.name)
+         localStorage.setItem('ongId', id);
+         localStorage.setItem('ongName', response.data.name);
 
-         history.push('/profile')
+         history.push('/profile');
       } catch(error) {
-         alert(error)
+         alert(error);
       }
    }
 
@@ -52,5 +52,5 @@ export default function Logon() {
 
          <img src={heroesImg} alt="Heroes" />         
       </div>
-   )
+   );
 }

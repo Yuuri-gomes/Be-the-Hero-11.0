@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { FiPower, FiTrash2 } from 'react-icons/fi'
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { FiPower, FiTrash2 } from 'react-icons/fi';
 
-import logoImg from '../../assets/logo.svg'
+import logoImg from '../../assets/logo.svg';
 
-import api from '../../services/api'
+import api from '../../services/api';
 
-import './styles.css'
+import './styles.css';
 
 export default function Profile() {
-   const [incidents, setIncidents] = useState([])
+   const [incidents, setIncidents] = useState([]);
 
-   const history = useHistory()
-   const ongId = localStorage.getItem('ongId')
-   const ongName = localStorage.getItem('ongName')
+   const history = useHistory();
+   const ongId = localStorage.getItem('ongId');
+   const ongName = localStorage.getItem('ongName');
 
    useEffect(() => {
       api.get('profiles', {
@@ -21,7 +21,7 @@ export default function Profile() {
             Authorization: ongId
          }
       }).then(res => setIncidents(res.data))
-   }, [ongId])
+   }, [ongId]);
 
    async function handleDeleteIncident(id) {
       try {
@@ -29,19 +29,19 @@ export default function Profile() {
             headers: {
                Authorization: ongId
             }
-         })
+         });
 
-         setIncidents(incidents.filter(incident => incident.id !== id))
+         setIncidents(incidents.filter(incident => incident.id !== id));
       } catch (error) {
-         alert(`Erro ao deletar, tente novamente.`)
+         alert(`Erro ao deletar, tente novamente.`);
       }
-   }
+   };
 
    function handleLogout() {
-      localStorage.clear()
+      localStorage.clear();
 
-      history.push('/')
-   }
+      history.push('/');
+   };
 
    return (
       <div className="profile-container">
@@ -76,5 +76,5 @@ export default function Profile() {
             ))}
          </ul>
       </div>
-   )
-}
+   );
+};
