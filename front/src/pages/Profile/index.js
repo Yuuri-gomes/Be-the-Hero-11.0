@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FiPower, FiTrash2 } from 'react-icons/fi';
+import { FiPower, FiTrash2, FiEdit } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -11,9 +11,11 @@ import './styles.css';
 export default function Profile() {
    const [incidents, setIncidents] = useState([]);
 
+
    const history = useHistory();
    const ongId = localStorage.getItem('ongId');
    const ongName = localStorage.getItem('ongName');
+
 
    useEffect(() => {
       api.get('profiles', {
@@ -22,6 +24,7 @@ export default function Profile() {
          }
       }).then(res => setIncidents(res.data))
    }, [ongId]);
+
 
    async function handleDeleteIncident(id) {
       try {
@@ -72,9 +75,23 @@ export default function Profile() {
                   <button onClick={() => handleDeleteIncident(incident.id)} type="button">
                      <FiTrash2 size={20} color="#a8a8b3" />
                   </button>
+
+
+                  <button className="edit">
+                     <Link to={`incidents/edit/${incident.id}`}>
+                        <span>
+                           <FiEdit size={20} color="a8a8b3"></FiEdit>
+                        </span>
+                     </Link>
+                  </button>
+
+
+
+
                </li>
             ))}
          </ul>
       </div>
    );
+
 };

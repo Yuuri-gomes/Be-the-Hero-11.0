@@ -66,6 +66,10 @@
    background: transparent;
 }
 
+.profile-container ul li .edit {
+   margin-top: 25px;
+}
+
 .profile-container ul li button:hover {
    opacity: 0.7;
 }

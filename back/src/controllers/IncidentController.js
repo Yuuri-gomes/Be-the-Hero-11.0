@@ -37,6 +37,8 @@ module.exports = {
    async edit(req, res) {
 
       const ong_id = req.body.ong_id;
+      console.log(ong_id);
+      
       const {title,description,value} = req.body;
 
       const incidents = await connection('incidents')
