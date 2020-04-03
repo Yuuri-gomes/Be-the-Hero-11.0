@@ -28,13 +28,16 @@ export default function Profile() {
 
    async function handleDeleteIncident(id) {
       try {
-         await api.delete(`incidents/${id}`, {
-            headers: {
-               Authorization: ongId
-            }
-         });
+         if (window.confirm('Tem certeza que deseja excluir este caso ?')) {
 
-         setIncidents(incidents.filter(incident => incident.id !== id));
+            await api.delete(`incidents/${id}`, {
+               headers: {
+                  Authorization: ongId
+               }
+            });
+
+            setIncidents(incidents.filter(incident => incident.id !== id));
+         }
       } catch (error) {
          alert(`Erro ao deletar, tente novamente.`);
       }
@@ -84,9 +87,6 @@ export default function Profile() {
                         </span>
                      </Link>
                   </button>
-
-
-
 
                </li>
             ))}
